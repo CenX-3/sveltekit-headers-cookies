@@ -1,7 +1,6 @@
 import type { Handle } from '@sveltejs/kit';
 
-/** @type {import('@sveltejs/kit').Handle} */
-export async function handle({ event, resolve }): Handle {
+export const handle: Handle = async ({ event, resolve }) => {
 	// request.locals.user = await getUserInformation(request.headers.cookie);
 	event.locals.cookies = await event.request.headers.get('cookie');
 
@@ -14,7 +13,7 @@ export async function handle({ event, resolve }): Handle {
 	const response = await resolve(event);
 
 	return response;
-}
+};
 
 export function getSession(request) {
 	return { cookies: request.locals.cookies, headers: request.locals.headers };
