@@ -1,4 +1,8 @@
-<script>
+<script context="module">
+	// export const prerender = true;
+</script>
+
+<script lang="ts">
 	import { browser } from '$app/env';
 	import { session } from '$app/stores';
 	if (browser && !$session.cookies) {
