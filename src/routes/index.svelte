@@ -11,7 +11,7 @@
 	import { session } from '$app/stores';
 
 	onMount(() => {
-		if (browser) setTimeout(async () => document.getElementById('searchminer').focus(), 0);
+		// if (browser) setTimeout(async () => document.getElementById('searchminer').focus(), 0);
 	});
 </script>
 
