@@ -1,4 +1,4 @@
-import type { Handle } from '@sveltejs/kit';
+import type { Handle, GetSession } from '@sveltejs/kit';
 
 export const handle: Handle = async ({ event, resolve }) => {
 	// request.locals.user = await getUserInformation(request.headers.cookie);
@@ -15,6 +15,6 @@ export const handle: Handle = async ({ event, resolve }) => {
 	return response;
 };
 
-export function getSession(request) {
-	return { cookies: request.locals.cookies, headers: request.locals.headers };
-}
+export const getSession: GetSession = ({ locals }) => {
+	return { cookies: locals.cookies, headers: locals.headers };
+};
