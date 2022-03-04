@@ -1,24 +1,21 @@
 import type { Handle } from '@sveltejs/kit';
 
 /** @type {import('@sveltejs/kit').Handle} */
-export async function handle({ request, resolve }):Handle {
+export async function handle({ event, resolve }): Handle {
 	// request.locals.user = await getUserInformation(request.headers.cookie);
-  request.locals.cookies = request.headers.cookie
-  request.locals.headers = request.headers
+	event.locals.cookies = await event.request.headers.get('cookie');
 
-  console.log(request.headers)
+	let test = '';
+	for (const pair of await event.request.headers.entries()) {
+		test = test.concat(pair[0] + ': ' + pair[1]);
+	}
+	event.locals.headers = test;
 
-	const response = await resolve(request);
+	const response = await resolve(event);
 
-	return {
-		...response,
-		headers: {
-			...response.headers,
-			'x-custom-header': 'potato'
-		}
-	};
+	return response;
 }
 
 export function getSession(request) {
-  return { cookies: request.locals.cookies, headers: request.locals.headers };
+	return { cookies: request.locals.cookies, headers: request.locals.headers };
 }
